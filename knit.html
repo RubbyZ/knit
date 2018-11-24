@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+    .arrow-down {  
+    display: inline-block;  
+    vertical-align: top;  
+    border-top: 4px solid #000000;  
+    border-right: 4px solid transparent;  
+    border-left: 4px solid transparent;  
+    content: "";  
+    margin-top: 5px;  
+     }  
+   
+    .arrow-right {  
+    display: inline-block;  
+    vertical-align: top;  
+    border-left: 4px solid #000000;  
+    border-top: 4px solid transparent;  
+    border-bottom: 4px solid transparent;  
+    content: "";  
+    margin-top: 5px;  
+     } 
+    .dropbtn {
+      display: inline-block;  
+      content: "";  
+      margin-top: 5px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 860px;
+      overflow: auto;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 400px 400px;
+      text-decoration: none;
+      display: block;
+    }
+    .show {display:block;}
+    
+    div.r {
+        text-align: right;
+    }
+    div.l {
+        float: left;
+    }
+</style>
+</head>
+<body>
+
+<!-- move focus on next field when enter is pressed? -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.js"></script>
+
+<script>
+$(document).ready(function () {
+
+    $('table').on('submit', function (event) {
+        event.preventDefault();
+    })
+
+    $('input[type="text"]').keyup(function(event) {
+        if(event.keyCode === 13) {
+            $(this).next().focus();
+        }
+    });
+
+})
+</script>
+
+    <p>ROE for: Francis Hunter</p>
+    <button><span class="arrow-right"></span> </button> Company Information</br></br>
+
+    <button><span class="arrow-right"></span></button> Employee Information</br></br>
+
+    <div class="dropdown">
+    <button onclick="dropbtnFunction()" class="dropbtn">
+    <span class="arrow-right"></span> </button> Insurable Earnings
+        <div id="myDropdown" class="dropdown-content">
+    
+        <button id="Reset" onclick="resetFunction()" style="float: right;" >Reset</button>
+        <button id="Save" onclick="saveFunction()" style="float: right;">Save</button>    
+        <table>
+            <tr>
+                <td>First Day Worked </td>
+                <td>Last day paid  </td>
+            </tr>
+            
+            <tr>
+            	<form id="resetFirstDay">
+                	<td><input type="text" id="FirstDayWorked" value="1 Jan 2018" > </td> 
+                </form>
+                <td><input type="date" id="LastDayPaid" onchange="mathFunction()"> </td>
+            </tr>
+            
+            <tr>
+                <td>Pay Period Type </td>           
+                <td>Final Pay Period Ending Date</td>        
+            </tr>
+            
+            <tr>
+                <td>
+                    <select id = "PayPeriodType">
+                        <option value="semi-monthly">semi-monthly</option>
+                        <option value="monthly">monthly</option>
+                        <option value="weekly">weekly</option>
+                        <option value="bi-weekly">bi-weekly</option>            
+                    </select> 
+                    
+                </td>                
+                <td><input type="date" id="EndingDate" onchange="mathFunction()"> </td>  <!-- Final Pay Period Ending Date -->      
+            </tr>
+            
+            <tr> <td> Total Ins. Hours </td> </tr>
+            <form id = "resetHours">
+            	<tr> <td> <input type="text" id="TotalHours" disabled > </td> </tr>
+            </form>
+        </table><br>
+
+        <div class="r">
+            <div class="l">
+                Insurable Earnings Per Pay Period
+            </div>   
+            <form id="resetTotalEarning">
+                Total Ins. earning 
+                <input type="text" id = "TotalEarning" style="text-align:right;" disabled >
+            </form>
+        </div>
+        <form id = "resetPayTable">
+  
+				            		
+                    <tr>
+                    <td>PP01 <input type="text" class="pay" id="PP1" onchange="TotalInsEarning()"> </td>
+                    <td>PP02 <input type="text" class="pay" id="PP2" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP03 <input type="text" class="pay" id="PP3" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP04 <input type="text" class="pay" id="PP4" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP05 <input type="text" class="pay" id="PP5" onchange="TotalInsEarning()" disabled> </td>
+                    </tr>
+                        
+                    <tr>
+                    <td>PP06 <input type="text" id="PP6" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP07 <input type="text" id="PP7" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP08 <input type="text" id="PP8" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP09 <input type="text" id="PP9" onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP10 <input type="text" id="PP10" onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP11 <input type="text" id="PP11"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP12 <input type="text" id="PP12"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP13 <input type="text" id="PP13"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP14 <input type="text" id="PP14"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP15 <input type="text" id="PP15"  onchange="TotalInsEarning()" disabled> </td>
+                    </tr>
+                        
+                    <tr>
+                    <td>PP16 <input type="text" id="PP16"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP17 <input type="text" id="PP17"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP18 <input type="text" id="PP18"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP19 <input type="text" id="PP19"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP20 <input type="text" id="PP20"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP21 <input type="text" id="PP21"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP22 <input type="text" id="PP22"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP23 <input type="text" id="PP23"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP24 <input type="text" id="PP24"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP25 <input type="text" id="PP25"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP26 <input type="text" id="PP26"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP27 <input type="text" id="PP27"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP28 <input type="text" id="PP28"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP29 <input type="text" id="PP29"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP30 <input type="text" id="PP30"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP31 <input type="text" id="PP31"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP32 <input type="text" id="PP32"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP33 <input type="text" id="PP33"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP34 <input type="text" id="PP34"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP35 <input type="text" id="PP35"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP36 <input type="text" id="PP36"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP37 <input type="text" id="PP37"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP38 <input type="text" id="PP38"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP39 <input type="text" id="PP39"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP40 <input type="text" id="PP40"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP41 <input type="text" id="PP41"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP42 <input type="text" id="PP42"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP43 <input type="text" id="PP43"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP44 <input type="text" id="PP44"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP45 <input type="text" id="PP45"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP46 <input type="text" id="PP46"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP47 <input type="text" id="PP47"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP48 <input type="text" id="PP48"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP49 <input type="text" id="PP49"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP50 <input type="text" id="PP50"  onchange="TotalInsEarning()" disabled> </td> 
+                    </tr>
+                        
+                    <tr>
+                    <td>PP 51<input type="text" id="PP51"  onchange="TotalInsEarning()" disabled> </td> 
+                    <td>PP 52<input type="text" id="PP52"  onchange="TotalInsEarning()" disabled> </td>
+                    <td>PP 53<input type="text" id="PP53"  onchange="TotalInsEarning()" disabled> </td>
+                    </tr>
+   
+                         <!-- table -->
+        </form>   
+    </div>  <!--dropdown-content --> 
+
+    <br><br>
+
+<button><span class="arrow-right"></span> </button> Other Payments
+
+<script>
+/* When the user clicks on the button, toggle between hiding and showing the dropdown content */
+    function dropbtnFunction() 
+    {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+/* activity with click reset button*/
+    function resetFunction()
+    {
+    	var resetdate = new Date();
+        document.getElementById("LastDayPaid").value = resetdate;	// reset Last Day Paid
+        document.getElementById("EndingDate").value = resetdate;	// reset Final Pay Period Ending Date
+    	document.getElementById("resetFirstDay").reset();	// seset first day worked
+        document.getElementById("resetHours").reset(); 		// reset total ins. hours
+        document.getElementById("resetTotalEarning").reset();	// reset total ins. hours
+        document.getElementById("resetPayTable").reset();	// reset pay period table 
+        var i;
+        for (i=2; i <= 53; i++)
+        { 
+            newboxId = "PP" + i;    //add PP to box number to found box id
+            // set box available
+            document.getElementById(newboxId).disabled = true;
+        }
+    }
+    
+/*check month maximum day*/
+    function checkDayFunction (day, month, year, secondDate)
+    {
+        /* getMonth() will return 0 for January, every month number add 1 to get the correct month number */
+        if(month==3||month==5||month==8||month==10) // monthes all have 30 days
+        {
+            if (day>30)
+            {
+                alert("a lunar month of 30 days");
+                return;
+            }
+            else
+            {
+                var testDate = new Date(year, month, day);
+                checkNumOfDays(testDate, secondDate);
+            }
+        }
+        else if(month == 1)   // Feburary
+        {
+            if( LeapYear(year) )   //Feburary in leapyear has 29 days
+            {
+                if(day>29)
+                {
+                    alert("Feaburary of 29 days in leap year");
+                    return;
+                }
+            }
+            else  // Feburary in common year has 28 days
+            {
+                if(day>28)
+                {
+                    alert("Feaburary of 28 days in common year");
+                    return;
+                }  
+            }
+            var testDate = new Date(year, month, day);
+            checkNumOfDays(testDate, secondDate);
+        }
+        else
+        {
+          // monthes all have 31 days
+          var testDate = new Date(year, month, day);
+          checkNumOfDays(testDate, secondDate);
+        }
+    }
+ /*activity with when change the date*/   
+    function mathFunction()
+    {
+    	var inputDate = document.getElementById( "FirstDayWorked" ).value; // user input date       
+        var inputDate2 = document.getElementById("EndingDate").value;
+        var inputDate3 = document.getElementById("LastDayPaid").value; 
+        
+        var stringDate = inputDate.toString();	  // change input date to string
+        var parseStringDate = stringDate.split(" ");    // parse day out from date string
+        var day = parseStringDate[0];    // get day
+    
+        var newString = stringDate.replace(day, "1");    // set day to '1', then overflow days will not effect month
+        var d = new Date( newString );      
+        
+        if (!inputDate2)  //if Final Pay Period Ending Date is empty
+        { 	
+            if( !inputDate3)  // if Last Day Paid is empty
+            {	
+                alert("Please select Final Pay Date \n");
+                return;
+            }
+            else  
+            {
+            	// if Final Pay Period Ending Date empty, but Last Day Paid field
+            	var secondDate= new Date(inputDate3);
+            }
+		}
+        else 
+        {
+        	//if Final Pay Period Ending Date is field
+            var secondDate = new Date(inputDate2);
+        }
+        
+        
+        if ( !!d.valueOf() )        // valid date
+        {
+            year = d.getFullYear();
+            month = d.getMonth();
+            if ( 1900<= year && year <= (new Date()).getFullYear() )
+            {
+                checkDayFunction(day, month, year, secondDate);
+                if ( year == (new Date()).getFullYear() && month <= (new Date()).getMonth() )
+                {
+                    if ( month == (new Date()).getMonth() && day <= (new Date()).getDate() )
+                    {
+                        // when year is curent, month is current, day is less
+                    }
+                    else if( month < (new Date()).getMonth() )
+                    {
+                        // when year is curent, month is less
+                    }
+                    else
+                    {
+                        alert("You have input an invalid day, Please try a day before current day \n");
+                        return;
+                    }
+                }
+                else if( year < (new Date()).getFullYear())
+                {
+                    checkDayFunction(day, month, year, secondDate);
+                }
+                else
+                {
+                    alert("You have input an invalid month, Please try a month before current month \n");
+                    return;
+                }
+            }
+            else
+            {
+                alert("You have input an invalid year, Please try before 1900 to current year");
+                return;
+            }
+        }
+        else                    // Invalid date
+        {
+            alert("You have input an invalid date, Please try again\n"+"eg:1 Jan 2018");
+            return;
+        }
+    }
+      
+/* To check if the year is leap year */
+    function LeapYear(year)
+    {
+        return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0); 
+    }    
+    
+/*check number of days between 2 days
+      //in: frist day worked, last day paid or final pay period ending date */
+      function checkNumOfDays(firstDate, secondDate)
+      {
+          var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+          
+          var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));    // get days between 2 date
+
+          var choice = document.getElementById( "PayPeriodType" ).value;
+          if (choice == "semi-monthly")    // based on the choice in the select box, goes different if
+          {
+              var totalPeriod = Math.ceil(diffDays/15); 
+              TableBox(totalPeriod);
+          }
+          else if(choice == "monthly")
+          {
+              var totalPeriod = Math.ceil(diffDays/31); 
+              TableBox(totalPeriod);
+          }
+          else if(choice == "weekly")
+          {
+              var totalPeriod = Math.ceil(diffDays/7); 
+              TableBox(totalPeriod);
+          }
+          else
+          {
+              var totalPeriod = Math.ceil(diffDays/14); 
+              TableBox(totalPeriod);
+          }
+      }        
+    
+/* After get number of pay period box, release disabled boxs */   
+    function TableBox(numOfBox)
+    {
+    	var boxId;
+        var newboxId;
+    	for (boxId=1; boxId <= numOfBox; boxId++)
+        { 
+            newboxId = "PP" + boxId;    //add PP to box number to found box id
+            document.getElementById(newboxId).disabled = false;    // set box available            
+        }        
+    }
+
+/* calculate the Total Ins Earning */
+function TotalInsEarning() 
+{
+    var boxId;
+    var allInsEarn = 0;
+    var maxOfBox=53;
+    
+    for (boxId=1; boxId <= maxOfBox; boxId++)
+    {       	
+        var newboxId = "PP" + boxId;    //add PP to box number to found box id
+		
+        if(document.getElementById(newboxId).value){
+            var payValue = document.getElementById(newboxId).value;
+        
+            if (payValue.trim() == '') 
+            {
+             //   window.confirm("1");
+                document.getElementById("TotalEarning").value = "Please input numbers";
+                return;
+            } 
+            else if ( !(isNaN(payValue)) ) 
+            {
+                allInsEarn = +allInsEarn + +payValue;
+            }
+            else{
+                document.getElementById("TotalEarning").value = "Please input with number";
+                return;                
+            }
+            document.getElementById("TotalEarning").value = allInsEarn;    // display final total Total Ins. earning
+    	} 
+    }
+}
+    
+</script>
+
+</body>
+</html>
